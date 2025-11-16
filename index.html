@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Driver State Monitoring System - Architecture Technique</title>
+    <title>Fleet Guardian - Architecture Technique Complète</title>
     <style>
         * {
             margin: 0;
@@ -27,6 +27,31 @@
             position: relative;
         }
 
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #fbbf24;
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #fcd34d;
+        }
+
+        /* For Firefox */
+        .slide {
+            scrollbar-width: thin;
+            scrollbar-color: #fbbf24 rgba(255, 255, 255, 0.05);
+        }
+
         .slide {
             width: 90%;
             max-width: 1200px;
@@ -34,8 +59,10 @@
             padding: 60px 80px;
             display: none;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             animation: fadeIn 0.5s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .slide.active {
@@ -55,9 +82,10 @@
 
         /* Slide 1 - Cover */
         .slide-cover {
-            justify-content: center;
+            justify-content: center !important;
             align-items: center;
             text-align: center;
+            overflow: hidden;
         }
 
         .slide-cover h1 {
@@ -248,11 +276,6 @@
             font-weight: 600;
         }
 
-        .flow-column ul {
-            list-style: none;
-            padding: 0;
-        }
-
         .flow-column li {
             color: #e0e0e0;
             font-size: 1.2rem;
@@ -264,6 +287,449 @@
             color: #fbbf24;
             font-size: 2.5rem;
             flex-shrink: 0;
+        }
+
+        /* Architecture diagram */
+        .architecture-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .arch-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .arch-box {
+            flex: 1;
+            background: rgba(251, 191, 36, 0.1);
+            border: 2px solid #fbbf24;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .arch-box h4 {
+            color: #fbbf24;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .arch-box p {
+            color: #e0e0e0;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .arch-arrow-down {
+            color: #fbbf24;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        /* Hardware components grid */
+        .hardware-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .hardware-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(251, 191, 36, 0.5);
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .hardware-item h4 {
+            color: #fbbf24;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .hardware-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .hardware-item li {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .hardware-item li::before {
+            content: "•";
+            color: #fbbf24;
+            position: absolute;
+            left: 0;
+            font-size: 1.3rem;
+        }
+
+        /* CV Features */
+        .cv-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .cv-feature {
+            background: rgba(251, 191, 36, 0.08);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .cv-feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .cv-feature h4 {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .cv-feature p {
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+
+        /* Data flow visualization */
+        .data-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .data-flow-level {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .data-source {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid #fbbf24;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .data-source h4 {
+            color: #fbbf24;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .data-source p {
+            color: #e0e0e0;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        /* Timeline */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 3px;
+            background: #fbbf24;
+        }
+
+        .timeline-item {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: #fbbf24;
+            border-radius: 50%;
+            margin: 30px auto 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-item h4 {
+            color: #fbbf24;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .timeline-item p {
+            color: #e0e0e0;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        /* Stats grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .stat-box {
+            background: rgba(251, 191, 36, 0.1);
+            border: 2px solid #fbbf24;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .stat-number {
+            color: #fbbf24;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+        }
+
+        /* Integration diagram */
+        .integration-diagram {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .integration-phase {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(251, 191, 36, 0.5);
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .integration-phase.highlight {
+            background: rgba(251, 191, 36, 0.15);
+            border: 2px solid #fbbf24;
+        }
+
+        .integration-phase h3 {
+            color: #fbbf24;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .integration-phase ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .integration-phase li {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .integration-phase li::before {
+            content: "✓";
+            color: #fbbf24;
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        /* System Architecture Flow */
+        .system-architecture {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .arch-stage {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .arch-module {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 3px solid #fbbf24;
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .arch-module.highlight-blue {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: #3b82f6;
+        }
+
+        .arch-module.highlight-green {
+            background: rgba(34, 197, 94, 0.15);
+            border-color: #22c55e;
+        }
+
+        .arch-module.highlight-orange {
+            background: rgba(251, 191, 36, 0.15);
+            border-color: #fbbf24;
+        }
+
+        .arch-module h3 {
+            color: #fbbf24;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .arch-module.highlight-blue h3 {
+            color: #3b82f6;
+        }
+
+        .arch-module.highlight-green h3 {
+            color: #22c55e;
+        }
+
+        .arch-io {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .arch-input, .arch-output {
+            flex: 1;
+        }
+
+        .arch-input h4, .arch-output h4 {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .arch-module.highlight-blue .arch-input h4,
+        .arch-module.highlight-blue .arch-output h4 {
+            color: #60a5fa;
+        }
+
+        .arch-module.highlight-green .arch-input h4,
+        .arch-module.highlight-green .arch-output h4 {
+            color: #4ade80;
+        }
+
+        .arch-input ul, .arch-output ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .arch-input li, .arch-output li {
+            color: #e0e0e0;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .arch-input li::before {
+            content: "▶";
+            color: #fbbf24;
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        .arch-module.highlight-blue .arch-input li::before {
+            color: #60a5fa;
+        }
+
+        .arch-module.highlight-green .arch-input li::before {
+            color: #4ade80;
+        }
+
+        .arch-output li::before {
+            content: "◀";
+            color: #fbbf24;
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        .arch-module.highlight-blue .arch-output li::before {
+            color: #60a5fa;
+        }
+
+        .arch-module.highlight-green .arch-output li::before {
+            color: #4ade80;
+        }
+
+        .arch-arrow-large {
+            color: #fbbf24;
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .arch-process {
+            background: rgba(251, 191, 36, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .arch-process p {
+            color: #ffffff;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .arch-badge {
+            display: inline-block;
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .arch-module.highlight-blue .arch-badge {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+
+        .arch-module.highlight-green .arch-badge {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
         }
 
         /* Outputs list */
@@ -412,146 +878,720 @@
     <div class="presentation">
         <!-- Slide 1: Cover -->
         <div class="slide slide-cover active" data-slide="1">
-            <h1>Driver State Monitoring System</h1>
-            <p class="subtitle">Architecture Technique pour Flottes de Camions</p>
+            <h1>Fleet Guardian</h1>
+            <p class="subtitle">Système Avancé de Surveillance et Prédiction de Fatigue pour Conducteurs</p>
         </div>
 
         <!-- Slide 2: Vue d'ensemble -->
         <div class="slide" data-slide="2">
-            <h2>Vue d'ensemble du Système</h2>
-            <p class="content-text">Solution complète pour optimiser la sécurité et la performance des flottes</p>
+            <h2>Vue d'Ensemble du Système</h2>
+            <p class="content-text">Fleet Guardian : Solution intégrée pour la sécurité routière des flottes commerciales</p>
             <ul class="points-list">
-                <li>Monitoring en temps réel de l'état du conducteur</li>
-                <li>Recommandations intelligentes de durée de conduite et repos</li>
-                <li>Prévention des accidents et amélioration de la sécurité</li>
-                <li>Optimisation de la performance opérationnelle</li>
+                <li>Surveillance en temps réel de l'état du conducteur via computer vision</li>
+                <li>Prédiction intelligente du temps de conduite sécuritaire restant</li>
+                <li>Recommandations de pause personnalisées basées sur l'analyse comportementale</li>
+                <li>Intégration complète hardware et software pour déploiement commercial</li>
+                <li>Conformité réglementaire et gestion proactive de la fatigue</li>
             </ul>
         </div>
 
-        <!-- Slide 3: Sources de Données -->
+        <!-- Slide 3: Architecture Système Complète -->
         <div class="slide" data-slide="3">
-            <h2>Sources de Données</h2>
-            <div class="sections-grid">
-                <div class="section-card">
-                    <h3>Computer Vision</h3>
-                    <p>Caméras embarquées pour reconnaissance d'état du conducteur</p>
+            <h2>Architecture Système Complète</h2>
+            <div class="system-architecture">
+                <!-- Stage 1: Data Collection -->
+                <div class="arch-stage">
+                    <div class="arch-module highlight-blue">
+                        <h3>📊 ÉTAPE 1: COLLECTE DE DONNÉES</h3>
+                        <div class="arch-io">
+                            <div class="arch-input">
+                                <h4>🔹 Sources de Données</h4>
+                                <ul>
+                                    <li>Caméra IR (vidéo conducteur)</li>
+                                    <li>Capteurs véhicule (vitesse, direction)</li>
+                                    <li>Accélération / Freinage</li>
+                                    <li>Profil conducteur</li>
+                                    <li>Historique trajets</li>
+                                </ul>
+                            </div>
+                            <div class="arch-output">
+                                <h4>🔹 Outputs</h4>
+                                <ul>
+                                    <li>Flux vidéo traité</li>
+                                    <li>Données capteurs normalisées</li>
+                                    <li>Métadonnées contextuelles</li>
+                                    <li>Données synchronisées</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="arch-badge">Hardware: Caméra IR + Capteurs Embarqués</span>
+                    </div>
                 </div>
-                <div class="section-card">
-                    <h3>Capteurs</h3>
-                    <p>Accélération, décélération, direction, vitesse, mouvements</p>
+
+                <div class="arch-arrow-large">⬇️</div>
+
+                <!-- Stage 2: AI Part 1 - Fatigue Score -->
+                <div class="arch-stage">
+                    <div class="arch-module highlight-green">
+                        <h3>🤖 ÉTAPE 2: IA PARTIE 1 - SCORE DE FATIGUE</h3>
+                        <div class="arch-io">
+                            <div class="arch-input">
+                                <h4>🔹 Inputs</h4>
+                                <ul>
+                                    <li>Flux vidéo conducteur</li>
+                                    <li>Données comportement conduite</li>
+                                    <li>Capteurs temps réel</li>
+                                </ul>
+                            </div>
+                            <div class="arch-output">
+                                <h4>🔹 Outputs</h4>
+                                <ul>
+                                    <li><strong>Score de fatigue (0-100)</strong></li>
+                                    <li>Niveau d'alerte détecté</li>
+                                    <li>Patterns de comportement</li>
+                                    <li>Indicateurs physiologiques</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="arch-process">
+                            <p><strong>Traitement:</strong> Modèles CNN analysent mouvement des yeux, dilatation pupillaire, ouverture paupières, position tête, gestes de fatigue</p>
+                        </div>
+                        <span class="arch-badge">Platform: Jetson Nano / PCB Automobile</span>
+                    </div>
                 </div>
-                <div class="section-card">
-                    <h3>Historique</h3>
-                    <p>Données temporelles, patterns de comportement, données passées</p>
+
+                <div class="arch-arrow-large">⬇️</div>
+
+                <!-- Stage 3: AI Part 2 - Prediction -->
+                <div class="arch-stage">
+                    <div class="arch-module highlight-orange">
+                        <h3>🎯 ÉTAPE 3: IA PARTIE 2 - PRÉDICTION & RECOMMANDATIONS</h3>
+                        <div class="arch-io">
+                            <div class="arch-input">
+                                <h4>🔹 Inputs</h4>
+                                <ul>
+                                    <li>Score de fatigue (Partie 1)</li>
+                                    <li>Profil conducteur (âge, médical)</li>
+                                    <li>Historique fatigue</li>
+                                    <li>Distance/temps parcourus</li>
+                                    <li>Réglementations légales</li>
+                                </ul>
+                            </div>
+                            <div class="arch-output">
+                                <h4>🔹 Outputs Finaux</h4>
+                                <ul>
+                                    <li><strong>Temps conduite restant</strong></li>
+                                    <li><strong>Durée de pause recommandée</strong></li>
+                                    <li>Alertes de sécurité</li>
+                                    <li>Recommandations personnalisées</li>
+                                    <li>Rapports pour gestionnaires</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="arch-process">
+                            <p><strong>Traitement:</strong> Algorithmes prédictifs combinent score de fatigue, données historiques et profil pour calculer le temps de conduite sécuritaire</p>
+                        </div>
+                        <span class="arch-badge">Affichage: Dashboard Conducteur + Interface Gestionnaire</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 4: Traitement Vidéo -->
+        <!-- Slide 4: Architecture Matérielle -->
         <div class="slide" data-slide="4">
-            <h2>Traitement Vidéo en Temps Réel</h2>
-            <div class="steps-flow">
-                <div class="step"><strong>Capture:</strong> Flux vidéo continu des caméras embarquées</div>
-                <div class="step"><strong>Détection:</strong> Identification des caractéristiques du conducteur</div>
-                <div class="step"><strong>Classification:</strong> Analyse de l'état (alerte, fatigue, normal)</div>
-                <div class="step"><strong>Alertes:</strong> Génération d'alertes et notifications en temps réel</div>
+            <h2>ÉTAPE 1 : Collecte de Données - Hardware</h2>
+            <p class="content-text">Infrastructure matérielle pour la capture des données en temps réel</p>
+            <div class="hardware-grid">
+                <div class="hardware-item">
+                    <h4>📷 Caméra IR</h4>
+                    <ul>
+                        <li>Surveillance jour et nuit (infrarouge)</li>
+                        <li>Flux vidéo continu du conducteur</li>
+                        <li>Résolution optimisée pour IA</li>
+                        <li>Montage véhicule optimisé</li>
+                    </ul>
+                </div>
+                <div class="hardware-item">
+                    <h4>🚗 Capteurs Véhicule</h4>
+                    <ul>
+                        <li>Vitesse instantanée</li>
+                        <li>Angle de direction</li>
+                        <li>Accélération / Décélération</li>
+                        <li>Force de freinage</li>
+                    </ul>
+                </div>
+                <div class="hardware-item">
+                    <h4>🖥️ Unité de Traitement</h4>
+                    <ul>
+                        <li>Jetson Nano (prototype)</li>
+                        <li>PCB automobile grade (production)</li>
+                        <li>GPU pour inférence temps réel</li>
+                        <li>Interface avec tous les capteurs</li>
+                    </ul>
+                </div>
+                <div class="hardware-item">
+                    <h4>💾 Stockage de Données</h4>
+                    <ul>
+                        <li>Profil conducteur (âge, médical)</li>
+                        <li>Historique de trajets</li>
+                        <li>Scores de fatigue passés</li>
+                        <li>Base de données locale</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="arch-process" style="margin-top: 30px;">
+                <p><strong>Résultat :</strong> Flux de données synchronisées et normalisées prêtes pour l'analyse IA</p>
             </div>
         </div>
 
-        <!-- Slide 5: Reconnaissance d'État -->
+        <!-- Slide 5: Collecte de Données - Détails -->
         <div class="slide" data-slide="5">
-            <h2>Reconnaissance de l'État du Conducteur</h2>
+            <h2>ÉTAPE 1 : Sources de Données Détaillées</h2>
+            <div class="data-flow">
+                <div class="data-flow-level">
+                    <div class="data-source">
+                        <h4>📹 Données Vidéo en Direct</h4>
+                        <p><strong>Source :</strong> Caméra IR montée sur tableau de bord<br>
+                        <strong>Format :</strong> Flux vidéo HD, 30 fps minimum<br>
+                        <strong>Traitement :</strong> Normalisation, détection de visage, extraction de caractéristiques<br>
+                        <strong>Output :</strong> Frames annotées avec points faciaux clés</p>
+                    </div>
+                </div>
+                <div class="data-flow-level">
+                    <div class="data-source">
+                        <h4>🚗 Données Capteurs Véhicule</h4>
+                        <p><strong>Sources :</strong> Bus CAN, capteurs embarqués<br>
+                        <strong>Paramètres :</strong> Vitesse, direction, accélération, freinage<br>
+                        <strong>Output :</strong> Séries temporelles synchronisées avec vidéo</p>
+                    </div>
+                </div>
+                <div class="data-flow-level">
+                    <div class="data-source">
+                        <h4>👤 Profil Conducteur</h4>
+                        <p><strong>Données statiques :</strong> Âge, expérience, conditions médicales<br>
+                        <strong>Données dynamiques :</strong> Heures travaillées, dernier repos<br>
+                        <strong>Historique :</strong> Patterns de fatigue, incidents passés<br>
+                        <strong>Output :</strong> Vecteur de caractéristiques personnalisé</p>
+                    </div>
+                </div>
+                <div class="data-flow-level">
+                    <div class="data-source">
+                        <h4>📊 Historique de Trajets</h4>
+                        <p><strong>Distance parcourue :</strong> Km total aujourd'hui/cette semaine<br>
+                        <strong>Temps de conduite :</strong> Heures actives et pauses<br>
+                        <strong>Scores passés :</strong> Évolution de la fatigue sur les trajets<br>
+                        <strong>Output :</strong> Contexte temporel pour prédictions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Modèles Computer Vision CNN -->
+        <div class="slide" data-slide="6">
+            <h2>ÉTAPE 2 : IA Partie 1 - Analyse Computer Vision</h2>
+            <p class="content-text">Modèles CNN analysant les indicateurs physiologiques de fatigue</p>
+            <div class="cv-features">
+                <div class="cv-feature">
+                    <div class="cv-feature-icon">👁️</div>
+                    <h4>Mouvement des Yeux</h4>
+                    <p>Tracking direction regard, fréquence clignement, fermetures prolongées</p>
+                </div>
+                <div class="cv-feature">
+                    <div class="cv-feature-icon">🎯</div>
+                    <h4>Dilatation Pupillaire</h4>
+                    <p>Variations de taille pupille, indicateur stress et vigilance</p>
+                </div>
+                <div class="cv-feature">
+                    <div class="cv-feature-icon">😴</div>
+                    <h4>Ouverture Paupières</h4>
+                    <p>PERCLOS (temps yeux fermés), niveau ouverture, micro-sommeils</p>
+                </div>
+                <div class="cv-feature">
+                    <div class="cv-feature-icon">🧑</div>
+                    <h4>Mouvement de Tête</h4>
+                    <p>Position, inclinaison, hochements, stabilité posturale</p>
+                </div>
+                <div class="cv-feature">
+                    <div class="cv-feature-icon">🤲</div>
+                    <h4>Gestes de Fatigue</h4>
+                    <p>Frottement yeux, bâillements, mouvements compensatoires</p>
+                </div>
+                <div class="cv-feature">
+                    <div class="cv-feature-icon">😐</div>
+                    <h4>Expression Faciale</h4>
+                    <p>Relâchement musculaire, signes de somnolence visible</p>
+                </div>
+            </div>
+            <div class="arch-process" style="margin-top: 20px;">
+                <p><strong>Technologie :</strong> Réseaux de neurones convolutionnels (CNN) entraînés sur datasets de fatigue au volant</p>
+            </div>
+        </div>
+
+        <!-- Slide 7: Analytique du Comportement de Conduite -->
+        <div class="slide" data-slide="7">
+            <h2>ÉTAPE 2 : IA Partie 1 - Comportement de Conduite</h2>
+            <p class="content-text">Analyse des patterns de conduite révélateurs de fatigue</p>
             <div class="parameters-grid">
                 <div class="parameter">
-                    <strong>Fatigue et Vigilance</strong>
-                    <span>Détection du niveau de fatigue</span>
+                    <strong>🎛️ Fluctuations de Direction</strong>
+                    <span><strong>Indicateur :</strong> Micro-corrections fréquentes du volant<br>
+                    <strong>Détection :</strong> Variance angle de direction sur fenêtre temporelle<br>
+                    <strong>Fatigue :</strong> Augmentation des oscillations et sur-corrections</span>
                 </div>
                 <div class="parameter">
-                    <strong>Attention Visuelle</strong>
-                    <span>Suivi du regard et de la concentration</span>
+                    <strong>⚡ Accélération / Décélération</strong>
+                    <span><strong>Indicateur :</strong> Changements brusques et irréguliers de vitesse<br>
+                    <strong>Détection :</strong> Analyse des variations d'accélération<br>
+                    <strong>Fatigue :</strong> Réactions retardées, manque de fluidité</span>
                 </div>
                 <div class="parameter">
-                    <strong>Comportement de Conduite</strong>
-                    <span>Patterns de mouvements et réactions</span>
+                    <strong>🛑 Intensité de Freinage</strong>
+                    <span><strong>Indicateur :</strong> Freinages tardifs ou trop brusques<br>
+                    <strong>Détection :</strong> Force et timing de freinage vs situation<br>
+                    <strong>Fatigue :</strong> Réflexes diminués, anticipation réduite</span>
                 </div>
                 <div class="parameter">
-                    <strong>Signaux Physiologiques</strong>
-                    <span>Yeux, posture, mouvements</span>
+                    <strong>🛣️ Correction de Trajectoire</strong>
+                    <span><strong>Indicateur :</strong> Déviations de voie et corrections<br>
+                    <strong>Détection :</strong> Écart par rapport au centre de voie<br>
+                    <strong>Fatigue :</strong> Dérives augmentées, attention réduite</span>
                 </div>
+            </div>
+            <div class="arch-process" style="margin-top: 20px;">
+                <p><strong>Fusion :</strong> Combinaison des indicateurs visuels (CNN) + comportement conduite = Score de fatigue composite</p>
             </div>
         </div>
 
-        <!-- Slide 6: Modèles ML -->
-        <div class="slide" data-slide="6">
-            <h2>Modèles d'Apprentissage Automatique</h2>
-            <div class="models-container">
-                <div class="model-card">
-                    <h3>Driver State Recognition</h3>
-                    <p>Identification précise de l'état du conducteur (fatigue, vigilance, distraction)</p>
-                </div>
-                <div class="model-card">
-                    <h3>Prediction &amp; Recommendation Engine</h3>
-                    <p>Prédiction des besoins de repos et recommandations de durée de conduite</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 7: Système de Calcul Central -->
-        <div class="slide" data-slide="7">
-            <h2>Système de Calcul Central</h2>
-            <div class="flow-diagram">
-                <div class="flow-column">
-                    <h3>Input</h3>
-                    <ul>
-                        <li>Flux vidéo</li>
-                        <li>Données capteurs</li>
-                        <li>Historique</li>
-                    </ul>
-                </div>
-                <div class="flow-arrow">→</div>
-                <div class="flow-column highlight">
-                    <h3>Processing</h3>
-                    <ul>
-                        <li>Analyse ML</li>
-                        <li>Fusion de données</li>
-                        <li>Moteur de décision</li>
-                    </ul>
-                </div>
-                <div class="flow-arrow">→</div>
-                <div class="flow-column">
-                    <h3>Output</h3>
-                    <ul>
-                        <li>Recommandations</li>
-                        <li>Alertes</li>
-                        <li>Rapports</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 8: Sortie & Recommandations -->
+        <!-- Slide 8: Score de Fatigue - Output IA Partie 1 -->
         <div class="slide" data-slide="8">
-            <h2>Sortie: Recommandations en Temps Réel</h2>
-            <ul class="outputs-list">
-                <li>Durée de conduite recommandée basée sur l'état actuel</li>
-                <li>Temps de repos suggérés pour sécurité optimale</li>
-                <li>Alertes de fatigue et notifications immédiates</li>
-                <li>Support à la décision pour gestionnaires de flottes</li>
+            <h2>ÉTAPE 2 : Output - Score de Fatigue</h2>
+            <div class="system-architecture">
+                <div class="arch-stage">
+                    <div class="arch-module highlight-green">
+                        <h3>🎯 SCORE DE FATIGUE (0-100)</h3>
+                        <div class="arch-process">
+                            <p><strong>Calcul :</strong> Agrégation pondérée des indicateurs via modèles de machine learning (Régression, PCA, réseaux de neurones)</p>
+                        </div>
+                        <div class="stats-grid" style="margin-top: 20px;">
+                            <div class="stat-box" style="background: rgba(34, 197, 94, 0.15); border-color: #22c55e;">
+                                <div class="stat-number" style="color: #22c55e;">0-25</div>
+                                <div class="stat-label">État Alerte<br>Conduite Sûre</div>
+                            </div>
+                            <div class="stat-box" style="background: rgba(251, 191, 36, 0.15); border-color: #fbbf24;">
+                                <div class="stat-number">26-50</div>
+                                <div class="stat-label">Vigilance Normale<br>Surveillance</div>
+                            </div>
+                            <div class="stat-box" style="background: rgba(249, 115, 22, 0.15); border-color: #f97316;">
+                                <div class="stat-number" style="color: #f97316;">51-75</div>
+                                <div class="stat-label">Fatigue Modérée<br>Attention</div>
+                            </div>
+                            <div class="stat-box" style="background: rgba(239, 68, 68, 0.15); border-color: #ef4444;">
+                                <div class="stat-number" style="color: #ef4444;">76-100</div>
+                                <div class="stat-label">Fatigue Sévère<br>Arrêt Urgent</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sections-grid" style="margin-top: 30px;">
+                <div class="section-card">
+                    <h3>Niveau d'Alerte</h3>
+                    <p>Classification de l'état actuel du conducteur pour prise de décision immédiate</p>
+                </div>
+                <div class="section-card">
+                    <h3>Patterns Comportement</h3>
+                    <p>Identification des tendances et évolution du comportement au fil du temps</p>
+                </div>
+                <div class="section-card">
+                    <h3>Indicateurs Physiologiques</h3>
+                    <p>Détails des paramètres visuels détectés (yeux, tête, gestes)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Module d'Analytique Prédictive -->
+        <div class="slide" data-slide="9">
+            <h2>ÉTAPE 3 : IA Partie 2 - Moteur Prédictif</h2>
+            <p class="content-text">Algorithmes avancés pour prédire le temps de conduite sécuritaire restant</p>
+            <div class="architecture-diagram">
+                <div class="arch-row">
+                    <div class="arch-box" style="background: rgba(251, 191, 36, 0.15); border-color: #fbbf24;">
+                        <h4>Score de Fatigue Actuel</h4>
+                        <p>Valeur en temps réel de l'IA Partie 1 (0-100)</p>
+                    </div>
+                </div>
+                <div class="arch-arrow-down">⬇️</div>
+                <div class="arch-row">
+                    <div class="arch-box" style="background: rgba(59, 130, 246, 0.1); border-color: #3b82f6;">
+                        <h4>Enrichissement Contextuel</h4>
+                        <p>+ Profil conducteur + Historique + Temps conduit + Réglementations</p>
+                    </div>
+                </div>
+                <div class="arch-arrow-down">⬇️</div>
+                <div class="arch-row">
+                    <div class="arch-box" style="background: rgba(251, 191, 36, 0.2); border-color: #fbbf24;">
+                        <h4>Modèle Prédictif</h4>
+                        <p>Machine Learning : Prédiction évolution fatigue sur prochaines heures</p>
+                    </div>
+                </div>
+                <div class="arch-arrow-down">⬇️</div>
+                <div class="arch-row">
+                    <div class="arch-box" style="background: rgba(34, 197, 94, 0.15); border-color: #22c55e;">
+                        <h4>Calcul Temps Restant</h4>
+                        <p>Temps de conduite sécuritaire avant atteinte seuil critique</p>
+                    </div>
+                </div>
+                <div class="arch-arrow-down">⬇️</div>
+                <div class="arch-row">
+                    <div class="arch-box" style="background: rgba(251, 191, 36, 0.15); border-color: #fbbf24;">
+                        <h4>Recommandations Personnalisées</h4>
+                        <p>Durée et timing de pause optimaux pour récupération</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Prédiction - Inputs Détaillés -->
+        <div class="slide" data-slide="10">
+            <h2>ÉTAPE 3 : Inputs pour la Prédiction</h2>
+            <div class="data-flow">
+                <div class="data-flow-level">
+                    <div class="data-source">
+                        <h4>🎯 Score de Fatigue (IA Partie 1)</h4>
+                        <p><strong>Valeur actuelle :</strong> Score 0-100 en temps réel<br>
+                        <strong>Tendance :</strong> Évolution sur dernières 30 minutes<br>
+                        <strong>Variabilité :</strong> Stabilité ou fluctuations du score<br>
+                        <strong>Usage :</strong> Base principale pour calcul prédictif</p>
+                    </div>
+                </div>
+                <div class="data-flow-level">
+                    <div class="data-source">
+                        <h4>👤 Profil Conducteur</h4>
+                        <p><strong>Démographie :</strong> Âge (impact sur résistance fatigue)<br>
+                        <strong>Médical :</strong> Conditions affectant vigilance (apnée, etc.)<br>
+                        <strong>Expérience :</strong> Années de conduite, habitudes<br>
+                        <strong>Usage :</strong> Personnalisation des seuils et recommandations</p>
+                    </div>
+                </div>
+                <div class="data-flow-level">
+                    <div class="data-source">
+                        <h4>� Historique de Fatigue</h4>
+                        <p><strong>Scores passés :</strong> Évolution fatigue sur trajets précédents<br>
+                        <strong>Patterns :</strong> Moments critique (fin journée, après repas)<br>
+                        <strong>Récupération :</strong> Efficacité des pauses passées<br>
+                        <strong>Usage :</strong> Modélisation du comportement individuel</p>
+                    </div>
+                </div>
+                <div class="data-flow-level">
+                    <div class="data-source">
+                        <h4>⏱️ Distance et Temps Parcourus</h4>
+                        <p><strong>Aujourd'hui :</strong> Heures de conduite et km effectués<br>
+                        <strong>Cette semaine :</strong> Charge de travail cumulative<br>
+                        <strong>Dernier repos :</strong> Durée depuis dernière pause significative<br>
+                        <strong>Usage :</strong> Calcul charge de travail et limites légales</p>
+                    </div>
+                </div>
+                <div class="data-flow-level">
+                    <div class="data-source">
+                        <h4>⚖️ Réglementations Légales</h4>
+                        <p><strong>Temps max :</strong> Limites réglementaires temps de conduite<br>
+                        <strong>Pauses obligatoires :</strong> Durées minimales de repos<br>
+                        <strong>Repos hebdomadaire :</strong> Contraintes légales période<br>
+                        <strong>Usage :</strong> Conformité et recommandations sécuritaires</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Prédiction - Outputs Finaux -->
+        <div class="slide" data-slide="11">
+            <h2>ÉTAPE 3 : Outputs Finaux du Système</h2>
+            <div class="system-architecture">
+                <div class="arch-stage">
+                    <div class="arch-module highlight-orange">
+                        <h3>⏱️ TEMPS DE CONDUITE RESTANT</h3>
+                        <div class="arch-process">
+                            <p><strong>Calcul :</strong> Prédiction du temps avant atteinte score fatigue critique (basé sur tendance actuelle)<br>
+                            <strong>Mise à jour :</strong> Recalcul continu toutes les minutes<br>
+                            <strong>Affichage :</strong> Durée en heures et minutes sur dashboard conducteur</p>
+                        </div>
+                        <div class="stats-grid" style="margin-top: 15px; grid-template-columns: repeat(3, 1fr);">
+                            <div class="stat-box" style="background: rgba(34, 197, 94, 0.15); border-color: #22c55e;">
+                                <div class="stat-number" style="color: #22c55e; font-size: 2rem;">&gt; 2h</div>
+                                <div class="stat-label">Bon état</div>
+                            </div>
+                            <div class="stat-box" style="background: rgba(251, 191, 36, 0.15);">
+                                <div class="stat-number" style="font-size: 2rem;">1-2h</div>
+                                <div class="stat-label">Planifier pause</div>
+                            </div>
+                            <div class="stat-box" style="background: rgba(239, 68, 68, 0.15); border-color: #ef4444;">
+                                <div class="stat-number" style="color: #ef4444; font-size: 2rem;">&lt; 1h</div>
+                                <div class="stat-label">Pause urgente</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="arch-arrow-large" style="margin: 15px 0;">⬇️</div>
+                <div class="arch-stage">
+                    <div class="arch-module highlight-orange">
+                        <h3>☕ DURÉE DE PAUSE RECOMMANDÉE</h3>
+                        <div class="arch-process">
+                            <p><strong>Calcul :</strong> Durée optimale basée sur niveau fatigue et profil conducteur<br>
+                            <strong>Personnalisé :</strong> Adapté à l'historique de récupération individuelle<br>
+                            <strong>Timing :</strong> Suggestion moment idéal pour pause (avant zone critique)</p>
+                        </div>
+                        <div class="parameters-grid" style="margin-top: 15px;">
+                            <div class="parameter">
+                                <strong>Pause Courte (15-20 min)</strong>
+                                <span>Fatigue légère, micro-récupération, café/marche</span>
+                            </div>
+                            <div class="parameter">
+                                <strong>Pause Moyenne (30-45 min)</strong>
+                                <span>Fatigue modérée, repos actif, repas léger</span>
+                            </div>
+                            <div class="parameter">
+                                <strong>Pause Longue (1-2h)</strong>
+                                <span>Fatigue importante, micro-sommeil recommandé</span>
+                            </div>
+                            <div class="parameter">
+                                <strong>Arrêt Obligatoire (&gt; 6h)</strong>
+                                <span>Fatigue sévère, repos nocturne requis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Alertes et Recommandations -->
+        <div class="slide" data-slide="12">
+            <h2>ÉTAPE 3 : Alertes de Sécurité & Recommandations</h2>
+            <div class="sections-grid">
+                <div class="section-card">
+                    <h3>🚨 Alertes Temps Réel</h3>
+                    <p><strong>Visuelles :</strong> Changement couleur dashboard<br>
+                    <strong>Sonores :</strong> Alarmes progressives selon urgence<br>
+                    <strong>Haptiques :</strong> Vibration siège/volant<br>
+                    <strong>Messages :</strong> Instructions claires à suivre</p>
+                </div>
+                <div class="section-card">
+                    <h3>🎯 Recommandations Personnalisées</h3>
+                    <p><strong>Timing pause :</strong> Moment optimal selon trajet<br>
+                    <strong>Durée repos :</strong> Temps de pause adapté<br>
+                    <strong>Activités :</strong> Type récupération adapté<br>
+                    <strong>Fréquence :</strong> Planification pauses régulières</p>
+                </div>
+                <div class="section-card">
+                    <h3>📊 Rapports Gestionnaires</h3>
+                    <p><strong>Dashboard flotte :</strong> Vue agrégée tous conducteurs<br>
+                    <strong>Alertes critiques :</strong> Notification incidents<br>
+                    <strong>Statistiques :</strong> Scores moyens, tendances<br>
+                    <strong>Conformité :</strong> Respect réglementations</p>
+                </div>
+            </div>
+            <div class="outputs-list" style="margin-top: 30px;">
+                <li><strong>Notification Préventive :</strong> Alerte 30 min avant atteinte seuil critique - "Pause recommandée dans 30 minutes"</li>
+                <li><strong>Alerte Urgente :</strong> Score fatigue &gt; 75 - "Fatigue sévère détectée - Arrêt immédiat requis"</li>
+                <li><strong>Recommandation Repos :</strong> "Pause de 45 min recommandée pour récupération optimale"</li>
+            </div>
+        </div>
+
+        <!-- Slide 13: Interface Utilisateur -->
+        <div class="slide" data-slide="13">
+            <h2>Interface Utilisateur - Dashboard Conducteur</h2>
+            <p class="content-text">Affichage des outputs en temps réel sur écran embarqué intégré au tableau de bord</p>
+            <div class="sections-grid">
+                <div class="section-card">
+                    <h3>📊 Score Fatigue</h3>
+                    <p>Jauge visuelle 0-100<br>Code couleur (vert/jaune/orange/rouge)<br>Mise à jour en temps réel</p>
+                </div>
+                <div class="section-card">
+                    <h3>⏱️ Temps Restant</h3>
+                    <p>Affichage grand format<br>Décompte dynamique<br>Alertes progressives</p>
+                </div>
+                <div class="section-card">
+                    <h3>☕ Pause Recommandée</h3>
+                    <p>Durée suggérée<br>Timing optimal<br>Type de repos adapté</p>
+                </div>
+            </div>
+            <div class="hardware-grid" style="margin-top: 30px;">
+                <div class="hardware-item">
+                    <h4>📺 Écran Principal</h4>
+                    <ul>
+                        <li>Affichage permanent dashboard</li>
+                        <li>Intégration tableau de bord véhicule</li>
+                        <li>Lisibilité optimisée jour/nuit</li>
+                        <li>Interface tactile optionnelle</li>
+                    </ul>
+                </div>
+                <div class="hardware-item">
+                    <h4>🔊 Alertes Multi-Sensorielles</h4>
+                    <ul>
+                        <li>Visuelles : Clignotement, changement couleur</li>
+                        <li>Sonores : Bips progressifs selon urgence</li>
+                        <li>Haptiques : Vibrations siège conducteur</li>
+                        <li>Messages vocaux : Instructions guidées</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Dashboard Gestionnaire de Flotte -->
+        <div class="slide" data-slide="14">
+            <h2>Dashboard Gestionnaire de Flotte</h2>
+            <p class="content-text">Interface web/mobile pour surveillance et gestion centralisée de la flotte</p>
+            <div class="parameters-grid">
+                <div class="parameter">
+                    <strong>� Vue en Temps Réel</strong>
+                    <span><strong>Monitoring actif :</strong> État de tous les véhicules<br>
+                    <strong>Statut conducteurs :</strong> Code couleur selon score fatigue<br>
+                    <strong>Alertes actives :</strong> Notifications incidents en cours</span>
+                </div>
+                <div class="parameter">
+                    <strong>📊 Statistiques Globales</strong>
+                    <span><strong>Scores moyens :</strong> Fatigue moyenne par conducteur/véhicule<br>
+                    <strong>Tendances :</strong> Évolution sur jour/semaine/mois<br>
+                    <strong>KPIs sécurité :</strong> Incidents évités, conformité</span>
+                </div>
+                <div class="parameter">
+                    <strong>👥 Profils Conducteurs</strong>
+                    <span><strong>Historiques :</strong> Scores et patterns individuels<br>
+                    <strong>Performance :</strong> Respect pauses, comportement<br>
+                    <strong>Formation :</strong> Identification besoins coaching</span>
+                </div>
+                <div class="parameter">
+                    <strong>📋 Rapports & Conformité</strong>
+                    <span><strong>Réglementaire :</strong> Respect temps conduite légaux<br>
+                    <strong>Incidents :</strong> Logs alertes et actions prises<br>
+                    <strong>Export :</strong> Rapports PDF/Excel pour audits</span>
+                </div>
+            </div>
+            <div class="closing-statement" style="margin-top: 30px;">
+                <p>Gestion proactive de la sécurité avec visibilité complète sur la flotte</p>
+            </div>
+        </div>
+
+        <!-- Slide 15: Évolution du Produit -->
+        <div class="slide" data-slide="15">
+            <h2>Évolution du Produit : Prototype → Production</h2>
+            <div class="integration-diagram">
+                <div class="integration-phase">
+                    <h3>🔬 Phase Prototype</h3>
+                    <ul>
+                        <li>Jetson Nano pour développement et tests</li>
+                        <li>Écrans externes connectés</li>
+                        <li>Caméras IR montage temporaire</li>
+                        <li>Validation modèles IA</li>
+                        <li>Tests terrain avec conducteurs réels</li>
+                        <li>Itération et amélioration continue</li>
+                    </ul>
+                </div>
+                <div class="integration-phase highlight">
+                    <h3>🚗 Phase Production</h3>
+                    <ul>
+                        <li>PCB automobile grade (certifié)</li>
+                        <li>Modules d'affichage embarqués intégrés</li>
+                        <li>Installation dashboard OEM</li>
+                        <li>Certification automobile (ISO 26262)</li>
+                        <li>Intégration bus CAN natif</li>
+                        <li>Déploiement commercial à échelle</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="arch-process" style="margin-top: 30px;">
+                <p><strong>Stratégie :</strong> Développement agile avec validation terrain continue, migration progressive vers hardware automotive-grade pour commercialisation</p>
+            </div>
+        </div>
+
+        <!-- Slide 16: Bénéfices & Impact -->
+        <div class="slide" data-slide="16">
+            <h2>Bénéfices & Impact Fleet Guardian</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-number">🛡️</div>
+                    <div class="stat-label">Prévention accidents fatigue</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Surveillance continue</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Conformité légale</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">⚡</div>
+                    <div class="stat-label">Temps réel</div>
+                </div>
+            </div>
+            <ul class="points-list" style="margin-top: 40px;">
+                <li><strong>Sécurité Renforcée :</strong> Prévention proactive des accidents liés à la fatigue au volant</li>
+                <li><strong>Conformité Automatisée :</strong> Respect automatique des réglementations temps de conduite</li>
+                <li><strong>Réduction Coûts :</strong> Moins d'accidents = économies assurances et maintenance</li>
+                <li><strong>Optimisation Opérationnelle :</strong> Planification intelligente trajets et pauses</li>
+                <li><strong>Bien-être Conducteurs :</strong> Prévention burnout, amélioration conditions travail</li>
+                <li><strong>ROI Mesurable :</strong> Métriques claires sur incidents évités et conformité</li>
             </ul>
         </div>
 
-        <!-- Slide 9: Conclusion -->
-        <div class="slide" data-slide="9">
-            <h2>Résumé de l'Architecture</h2>
+        <!-- Slide 17: Résumé Architecture Complète -->
+        <div class="slide" data-slide="17">
+            <h2>Résumé : Architecture Fleet Guardian</h2>
+            <div class="system-architecture">
+                <div class="arch-stage">
+                    <div class="arch-module highlight-blue">
+                        <h3>ÉTAPE 1 : COLLECTE</h3>
+                        <p style="color: #e0e0e0; margin-top: 10px;">Caméra IR + Capteurs véhicule + Profil + Historique<br>
+                        → Données synchronisées et normalisées</p>
+                    </div>
+                </div>
+                <div class="arch-arrow-large">⬇️</div>
+                <div class="arch-stage">
+                    <div class="arch-module highlight-green">
+                        <h3>ÉTAPE 2 : IA PARTIE 1</h3>
+                        <p style="color: #e0e0e0; margin-top: 10px;">CNN Computer Vision + Analyse comportement<br>
+                        → <strong>Score de Fatigue (0-100)</strong></p>
+                    </div>
+                </div>
+                <div class="arch-arrow-large">⬇️</div>
+                <div class="arch-stage">
+                    <div class="arch-module highlight-orange">
+                        <h3>ÉTAPE 3 : IA PARTIE 2</h3>
+                        <p style="color: #e0e0e0; margin-top: 10px;">Prédiction + Personnalisation + Réglementations<br>
+                        → <strong>Temps conduite restant + Pause recommandée</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="sections-grid" style="margin-top: 40px;">
+                <div class="section-card">
+                    <h3>Hardware</h3>
+                    <p>Jetson Nano/PCB Auto<br>Caméra IR<br>Capteurs embarqués</p>
+                </div>
+                <div class="section-card">
+                    <h3>Software</h3>
+                    <p>Modèles CNN<br>Algorithmes prédictifs<br>Fusion de données</p>
+                </div>
+                <div class="section-card">
+                    <h3>Interface</h3>
+                    <p>Dashboard conducteur<br>Alertes multi-sensorielles<br>Plateforme gestionnaire</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 18: Conclusion -->
+        <div class="slide" data-slide="18">
+            <h2>Fleet Guardian : L'Avenir de la Sécurité Routière</h2>
             <div class="summary-content">
                 <ul class="points-list">
-                    <li>Système complet de monitoring de l'état du conducteur</li>
-                    <li>Intégration vidéo, capteurs et données historiques</li>
-                    <li>Modèles ML avancés pour recommandations intelligentes</li>
-                    <li>Amélioration de la sécurité et performance des flottes</li>
+                    <li><strong>Architecture Complète :</strong> 3 étapes intégrées (Collecte → IA Fatigue → IA Prédiction)</li>
+                    <li><strong>Intelligence Artificielle :</strong> CNN pour computer vision + ML pour prédiction personnalisée</li>
+                    <li><strong>Temps Réel :</strong> Monitoring continu avec mise à jour instantanée des recommandations</li>
+                    <li><strong>Personnalisé :</strong> Adaptation au profil individuel et historique de chaque conducteur</li>
+                    <li><strong>Évolutif :</strong> Du prototype (Jetson Nano) à la production automotive-grade</li>
+                    <li><strong>Impact Mesurable :</strong> Réduction drastique accidents, conformité garantie, ROI démontrable</li>
                 </ul>
-                <div class="closing-statement">
-                    <p>Architecture robuste pour la sécurité des flottes de demain</p>
+                <div class="closing-statement" style="margin-top: 40px;">
+                    <p>Une solution complète et intelligente pour protéger les conducteurs et optimiser la gestion des flottes commerciales</p>
                 </div>
             </div>
         </div>
@@ -560,13 +1600,13 @@
     <!-- Navigation -->
     <div class="navigation">
         <button class="nav-btn" id="prevBtn" disabled>Précédent</button>
-        <span class="slide-counter" id="slideCounter">1 / 9</span>
+        <span class="slide-counter" id="slideCounter">1 / 18</span>
         <button class="nav-btn" id="nextBtn">Suivant</button>
     </div>
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 9;
+        const totalSlides = 18;
 
         const slides = document.querySelectorAll('.slide');
         const prevBtn = document.getElementById('prevBtn');
