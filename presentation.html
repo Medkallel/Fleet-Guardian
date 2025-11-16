@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver State Monitoring System - Architecture Technique</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #162153;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .presentation {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            padding: 60px 80px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Slide 1 - Cover */
+        .slide-cover {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide-cover h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
+
+        .slide-cover .subtitle {
+            font-size: 1.8rem;
+            color: #e0e0e0;
+            font-weight: 300;
+        }
+
+        /* Standard slide title */
+        h2 {
+            font-size: 3rem;
+            color: #fbbf24;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .content-text {
+            font-size: 1.4rem;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Points list */
+        .points-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .points-list li {
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            padding-left: 40px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .points-list li::before {
+            content: "▸";
+            color: #fbbf24;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Sections grid */
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .section-card {
+            background: rgba(251, 191, 36, 0.1);
+            border: 2px solid #fbbf24;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .section-card h3 {
+            color: #fbbf24;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .section-card p {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        /* Steps flow */
+        .steps-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px 35px;
+            border-radius: 10px;
+            border-left: 4px solid #fbbf24;
+            font-size: 1.3rem;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+
+        .step strong {
+            color: #fbbf24;
+        }
+
+        /* Parameters grid */
+        .parameters-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .parameter {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .parameter strong {
+            color: #fbbf24;
+            font-size: 1.3rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .parameter span {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        /* Models */
+        .models-container {
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            margin-top: 20px;
+        }
+
+        .model-card {
+            background: rgba(251, 191, 36, 0.08);
+            border: 2px solid #fbbf24;
+            border-radius: 12px;
+            padding: 35px;
+        }
+
+        .model-card h3 {
+            color: #fbbf24;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .model-card p {
+            color: #ffffff;
+            font-size: 1.3rem;
+            line-height: 1.6;
+        }
+
+        /* Flow diagram */
+        .flow-diagram {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            gap: 20px;
+        }
+
+        .flow-column {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .flow-column.highlight {
+            background: rgba(251, 191, 36, 0.15);
+            border: 2px solid #fbbf24;
+        }
+
+        .flow-column h3 {
+            color: #fbbf24;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .flow-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .flow-column li {
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .flow-arrow {
+            color: #fbbf24;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Outputs list */
+        .outputs-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .outputs-list li {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px 35px;
+            border-radius: 10px;
+            border-left: 4px solid #fbbf24;
+            font-size: 1.3rem;
+            color: #ffffff;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Summary slide */
+        .summary-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .closing-statement {
+            background: rgba(251, 191, 36, 0.15);
+            border: 2px solid #fbbf24;
+            border-radius: 12px;
+            padding: 35px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .closing-statement p {
+            color: #fbbf24;
+            font-size: 1.6rem;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .nav-btn {
+            background: #fbbf24;
+            color: #162153;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #fcd34d;
+            transform: scale(1.05);
+        }
+
+        .nav-btn:disabled {
+            background: rgba(251, 191, 36, 0.3);
+            color: rgba(22, 33, 83, 0.5);
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .slide-counter {
+            color: #fbbf24;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 40px 50px;
+            }
+
+            .slide-cover h1 {
+                font-size: 3rem;
+            }
+
+            .slide-cover .subtitle {
+                font-size: 1.4rem;
+            }
+
+            h2 {
+                font-size: 2.5rem;
+            }
+
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .parameters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+                height: auto;
+                min-height: 85vh;
+            }
+
+            .navigation {
+                bottom: 20px;
+                padding: 10px 20px;
+            }
+
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation">
+        <!-- Slide 1: Cover -->
+        <div class="slide slide-cover active" data-slide="1">
+            <h1>Driver State Monitoring System</h1>
+            <p class="subtitle">Architecture Technique pour Flottes de Camions</p>
+        </div>
+
+        <!-- Slide 2: Vue d'ensemble -->
+        <div class="slide" data-slide="2">
+            <h2>Vue d'ensemble du Système</h2>
+            <p class="content-text">Solution complète pour optimiser la sécurité et la performance des flottes</p>
+            <ul class="points-list">
+                <li>Monitoring en temps réel de l'état du conducteur</li>
+                <li>Recommandations intelligentes de durée de conduite et repos</li>
+                <li>Prévention des accidents et amélioration de la sécurité</li>
+                <li>Optimisation de la performance opérationnelle</li>
+            </ul>
+        </div>
+
+        <!-- Slide 3: Sources de Données -->
+        <div class="slide" data-slide="3">
+            <h2>Sources de Données</h2>
+            <div class="sections-grid">
+                <div class="section-card">
+                    <h3>Computer Vision</h3>
+                    <p>Caméras embarquées pour reconnaissance d'état du conducteur</p>
+                </div>
+                <div class="section-card">
+                    <h3>Capteurs</h3>
+                    <p>Accélération, décélération, direction, vitesse, mouvements</p>
+                </div>
+                <div class="section-card">
+                    <h3>Historique</h3>
+                    <p>Données temporelles, patterns de comportement, données passées</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Traitement Vidéo -->
+        <div class="slide" data-slide="4">
+            <h2>Traitement Vidéo en Temps Réel</h2>
+            <div class="steps-flow">
+                <div class="step"><strong>Capture:</strong> Flux vidéo continu des caméras embarquées</div>
+                <div class="step"><strong>Détection:</strong> Identification des caractéristiques du conducteur</div>
+                <div class="step"><strong>Classification:</strong> Analyse de l'état (alerte, fatigue, normal)</div>
+                <div class="step"><strong>Alertes:</strong> Génération d'alertes et notifications en temps réel</div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Reconnaissance d'État -->
+        <div class="slide" data-slide="5">
+            <h2>Reconnaissance de l'État du Conducteur</h2>
+            <div class="parameters-grid">
+                <div class="parameter">
+                    <strong>Fatigue et Vigilance</strong>
+                    <span>Détection du niveau de fatigue</span>
+                </div>
+                <div class="parameter">
+                    <strong>Attention Visuelle</strong>
+                    <span>Suivi du regard et de la concentration</span>
+                </div>
+                <div class="parameter">
+                    <strong>Comportement de Conduite</strong>
+                    <span>Patterns de mouvements et réactions</span>
+                </div>
+                <div class="parameter">
+                    <strong>Signaux Physiologiques</strong>
+                    <span>Yeux, posture, mouvements</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Modèles ML -->
+        <div class="slide" data-slide="6">
+            <h2>Modèles d'Apprentissage Automatique</h2>
+            <div class="models-container">
+                <div class="model-card">
+                    <h3>Driver State Recognition</h3>
+                    <p>Identification précise de l'état du conducteur (fatigue, vigilance, distraction)</p>
+                </div>
+                <div class="model-card">
+                    <h3>Prediction &amp; Recommendation Engine</h3>
+                    <p>Prédiction des besoins de repos et recommandations de durée de conduite</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Système de Calcul Central -->
+        <div class="slide" data-slide="7">
+            <h2>Système de Calcul Central</h2>
+            <div class="flow-diagram">
+                <div class="flow-column">
+                    <h3>Input</h3>
+                    <ul>
+                        <li>Flux vidéo</li>
+                        <li>Données capteurs</li>
+                        <li>Historique</li>
+                    </ul>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-column highlight">
+                    <h3>Processing</h3>
+                    <ul>
+                        <li>Analyse ML</li>
+                        <li>Fusion de données</li>
+                        <li>Moteur de décision</li>
+                    </ul>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-column">
+                    <h3>Output</h3>
+                    <ul>
+                        <li>Recommandations</li>
+                        <li>Alertes</li>
+                        <li>Rapports</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Sortie & Recommandations -->
+        <div class="slide" data-slide="8">
+            <h2>Sortie: Recommandations en Temps Réel</h2>
+            <ul class="outputs-list">
+                <li>Durée de conduite recommandée basée sur l'état actuel</li>
+                <li>Temps de repos suggérés pour sécurité optimale</li>
+                <li>Alertes de fatigue et notifications immédiates</li>
+                <li>Support à la décision pour gestionnaires de flottes</li>
+            </ul>
+        </div>
+
+        <!-- Slide 9: Conclusion -->
+        <div class="slide" data-slide="9">
+            <h2>Résumé de l'Architecture</h2>
+            <div class="summary-content">
+                <ul class="points-list">
+                    <li>Système complet de monitoring de l'état du conducteur</li>
+                    <li>Intégration vidéo, capteurs et données historiques</li>
+                    <li>Modèles ML avancés pour recommandations intelligentes</li>
+                    <li>Amélioration de la sécurité et performance des flottes</li>
+                </ul>
+                <div class="closing-statement">
+                    <p>Architecture robuste pour la sécurité des flottes de demain</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" id="prevBtn" disabled>Précédent</button>
+        <span class="slide-counter" id="slideCounter">1 / 9</span>
+        <button class="nav-btn" id="nextBtn">Suivant</button>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 9;
+
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slideCounter');
+
+        function updateSlide() {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Show current slide
+            const activeSlide = document.querySelector(`[data-slide="${currentSlide}"]`);
+            if (activeSlide) {
+                activeSlide.classList.add('active');
+            }
+
+            // Update counter
+            slideCounter.textContent = `${currentSlide} / ${totalSlides}`;
+
+            // Update button states
+            prevBtn.disabled = currentSlide === 1;
+            nextBtn.disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Event listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            }
+        });
+
+        // Initialize
+        updateSlide();
+    </script>
+</body>
+</html>
