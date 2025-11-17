@@ -882,21 +882,85 @@
             <p class="subtitle">Système Avancé de Surveillance et Prédiction de Fatigue pour Conducteurs</p>
         </div>
 
-        <!-- Slide 2: Vue d'ensemble -->
+        <!-- Slide 2: Problématique -->
         <div class="slide" data-slide="2">
-            <h2>Vue d'Ensemble du Système</h2>
-            <p class="content-text">Fleet Guardian : Solution intégrée pour la sécurité routière des flottes commerciales</p>
-            <ul class="points-list">
-                <li>Surveillance en temps réel de l'état du conducteur via computer vision</li>
-                <li>Prédiction intelligente du temps de conduite sécuritaire restant</li>
-                <li>Recommandations de pause personnalisées basées sur l'analyse comportementale</li>
-                <li>Intégration complète hardware et software pour déploiement commercial</li>
-                <li>Conformité réglementaire et gestion proactive de la fatigue</li>
+            <h2>Problématique : La Fatigue au Volant</h2>
+            <p class="content-text">Un enjeu majeur de sécurité routière pour le transport commercial</p>
+            <div class="stats-grid" style="margin-top: 40px;">
+                <div class="stat-box" style="background: rgba(239, 68, 68, 0.15); border-color: #ef4444;">
+                    <div class="stat-number" style="color: #ef4444;">+150K</div>
+                    <div class="stat-label">Accidents mortels annuels<br>liés à la fatigue</div>
+                </div>
+                <div class="stat-box" style="background: rgba(251, 191, 36, 0.15);">
+                    <div class="stat-number">20-30%</div>
+                    <div class="stat-label">Accidents poids lourds<br>causés par fatigue</div>
+                </div>
+                <div class="stat-box" style="background: rgba(249, 115, 22, 0.15); border-color: #f97316;">
+                    <div class="stat-number" style="color: #f97316;">2-4h</div>
+                    <div class="stat-label">Fenêtre critique<br>Pic de fatigue</div>
+                </div>
+                <div class="stat-box" style="background: rgba(239, 68, 68, 0.15); border-color: #ef4444;">
+                    <div class="stat-number" style="color: #ef4444;">x4</div>
+                    <div class="stat-label">Risque d'accident<br>avec fatigue</div>
+                </div>
+            </div>
+            <ul class="points-list" style="margin-top: 50px;">
+                <li><strong>Détection tardive :</strong> La fatigue est difficile à auto-évaluer par le conducteur</li>
+                <li><strong>Conséquences graves :</strong> Accidents mortels, pertes économiques, traumatismes</li>
+                <li><strong>Réglementation insuffisante :</strong> Limites de temps ne prédisent pas l'état réel du conducteur</li>
+                <li><strong>Absence de monitoring :</strong> Pas de surveillance en temps réel de l'état physiologique</li>
+                <li><strong>Gestion réactive :</strong> Interventions après incidents au lieu de prévention proactive</li>
             </ul>
+            <div class="arch-process" style="margin-top: 40px; font-size: 0.9rem; line-height: 1.8;">
+                <p style="margin-bottom: 10px;"><strong>Sources :</strong></p>
+                <p style="margin: 5px 0;">• OMS - <a href="https://www.who.int/news-room/fact-sheets/detail/road-traffic-injuries" target="_blank" style="color: #fcd34d; text-decoration: underline;">Global Status Report on Road Safety</a></p>
+                <p style="margin: 5px 0;">• NHTSA - <a href="https://www.nhtsa.gov/risky-driving/drowsy-driving" target="_blank" style="color: #fcd34d; text-decoration: underline;">Drowsy Driving Statistics</a></p>
+                <p style="margin: 5px 0;">• ETSC - <a href="https://etsc.eu/fatigue-and-road-safety/" target="_blank" style="color: #fcd34d; text-decoration: underline;">Fatigue and Road Safety Report</a></p>
+                <p style="margin: 5px 0;">• AAA Foundation - <a href="https://aaafoundation.org/acute-sleep-deprivation-crash-risk/" target="_blank" style="color: #fcd34d; text-decoration: underline;">Acute Sleep Deprivation and Crash Risk</a></p>
+            </div>
         </div>
 
-        <!-- Slide 3: Architecture Système Complète -->
+        <!-- Slide 3: Notre Solution - Fleet Guardian -->
         <div class="slide" data-slide="3">
+            <h2>Notre Solution : Fleet Guardian</h2>
+            <p class="content-text">Un système intelligent de surveillance et prédiction pour protéger vos conducteurs</p>
+            <div class="sections-grid" style="margin-top: 40px;">
+                <div class="section-card">
+                    <h3>🎯 Détection Intelligente</h3>
+                    <p>Surveillance en temps réel de l'état de fatigue grâce à l'intelligence artificielle et la vision par ordinateur</p>
+                </div>
+                <div class="section-card">
+                    <h3>🔮 Prédiction Proactive</h3>
+                    <p>Anticipation du temps de conduite sécuritaire restant avant atteinte du seuil critique</p>
+                </div>
+                <div class="section-card">
+                    <h3>💡 Recommandations Personnalisées</h3>
+                    <p>Conseils de pause adaptés au profil et à l'état réel du conducteur</p>
+                </div>
+            </div>
+            <div class="flow-diagram" style="margin-top: 50px;">
+                <div class="flow-column" style="background: rgba(59, 130, 246, 0.15); border: 2px solid #3b82f6;">
+                    <h3 style="color: #60a5fa;">📹 Caméra + Capteurs</h3>
+                    <p style="color: #e0e0e0; font-size: 1.1rem;">Surveillance continue du conducteur et du véhicule</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-column" style="background: rgba(34, 197, 94, 0.15); border: 2px solid #22c55e;">
+                    <h3 style="color: #4ade80;">🤖 Intelligence Artificielle</h3>
+                    <p style="color: #e0e0e0; font-size: 1.1rem;">Analyse en temps réel et calcul du score de fatigue</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-column" style="background: rgba(251, 191, 36, 0.15); border: 2px solid #fbbf24;">
+                    <h3>⚠️ Alertes & Conseils</h3>
+                    <p style="color: #e0e0e0; font-size: 1.1rem;">Prévention proactive avant situation dangereuse</p>
+                </div>
+            </div>
+            <div class="closing-statement" style="margin-top: 50px;">
+                <p>De la détection à la prévention : une approche complète pour sauver des vies</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Architecture Système Complète -->
+        <div class="slide" data-slide="4">
             <h2>Architecture Système Complète</h2>
             <div class="system-architecture">
                 <!-- Stage 1: Data Collection -->
@@ -997,8 +1061,8 @@
             </div>
         </div>
 
-        <!-- Slide 4: Architecture Matérielle -->
-        <div class="slide" data-slide="4">
+        <!-- Slide 5: Architecture Matérielle -->
+        <div class="slide" data-slide="5">
             <h2>ÉTAPE 1 : Collecte de Données - Hardware</h2>
             <p class="content-text">Infrastructure matérielle pour la capture des données en temps réel</p>
             <div class="hardware-grid">
@@ -1044,8 +1108,8 @@
             </div>
         </div>
 
-        <!-- Slide 5: Collecte de Données - Détails -->
-        <div class="slide" data-slide="5">
+        <!-- Slide 6: Collecte de Données - Détails -->
+        <div class="slide" data-slide="6">
             <h2>ÉTAPE 1 : Sources de Données Détaillées</h2>
             <div class="data-flow">
                 <div class="data-flow-level">
@@ -1086,8 +1150,8 @@
             </div>
         </div>
 
-        <!-- Slide 6: Modèles Computer Vision CNN -->
-        <div class="slide" data-slide="6">
+        <!-- Slide 7: Modèles Computer Vision CNN -->
+        <div class="slide" data-slide="7">
             <h2>ÉTAPE 2 : IA Partie 1 - Analyse Computer Vision</h2>
             <p class="content-text">Modèles CNN analysant les indicateurs physiologiques de fatigue</p>
             <div class="cv-features">
@@ -1127,8 +1191,8 @@
             </div>
         </div>
 
-        <!-- Slide 7: Analytique du Comportement de Conduite -->
-        <div class="slide" data-slide="7">
+        <!-- Slide 8: Analytique du Comportement de Conduite -->
+        <div class="slide" data-slide="8">
             <h2>ÉTAPE 2 : IA Partie 1 - Comportement de Conduite</h2>
             <p class="content-text">Analyse des patterns de conduite révélateurs de fatigue</p>
             <div class="parameters-grid">
@@ -1162,8 +1226,8 @@
             </div>
         </div>
 
-        <!-- Slide 8: Score de Fatigue - Output IA Partie 1 -->
-        <div class="slide" data-slide="8">
+        <!-- Slide 9: Score de Fatigue - Output IA Partie 1 -->
+        <div class="slide" data-slide="9">
             <h2>ÉTAPE 2 : Output - Score de Fatigue</h2>
             <div class="system-architecture">
                 <div class="arch-stage">
@@ -1209,8 +1273,8 @@
             </div>
         </div>
 
-        <!-- Slide 9: Module d'Analytique Prédictive -->
-        <div class="slide" data-slide="9">
+        <!-- Slide 10: Module d'Analytique Prédictive -->
+        <div class="slide" data-slide="10">
             <h2>ÉTAPE 3 : IA Partie 2 - Moteur Prédictif</h2>
             <p class="content-text">Algorithmes avancés pour prédire le temps de conduite sécuritaire restant</p>
             <div class="architecture-diagram">
@@ -1251,8 +1315,8 @@
             </div>
         </div>
 
-        <!-- Slide 10: Prédiction - Inputs Détaillés -->
-        <div class="slide" data-slide="10">
+        <!-- Slide 11: Prédiction - Inputs Détaillés -->
+        <div class="slide" data-slide="11">
             <h2>ÉTAPE 3 : Inputs pour la Prédiction</h2>
             <div class="data-flow">
                 <div class="data-flow-level">
@@ -1303,8 +1367,8 @@
             </div>
         </div>
 
-        <!-- Slide 11: Prédiction - Outputs Finaux -->
-        <div class="slide" data-slide="11">
+        <!-- Slide 12: Prédiction - Outputs Finaux -->
+        <div class="slide" data-slide="12">
             <h2>ÉTAPE 3 : Outputs Finaux du Système</h2>
             <div class="system-architecture">
                 <div class="arch-stage">
@@ -1363,8 +1427,8 @@
             </div>
         </div>
 
-        <!-- Slide 12: Alertes et Recommandations -->
-        <div class="slide" data-slide="12">
+        <!-- Slide 13: Alertes et Recommandations -->
+        <div class="slide" data-slide="13">
             <h2>ÉTAPE 3 : Alertes de Sécurité & Recommandations</h2>
             <div class="sections-grid">
                 <div class="section-card">
@@ -1395,8 +1459,8 @@
             </div>
         </div>
 
-        <!-- Slide 13: Interface Utilisateur -->
-        <div class="slide" data-slide="13">
+        <!-- Slide 14: Interface Utilisateur -->
+        <div class="slide" data-slide="14">
             <h2>Interface Utilisateur - Dashboard Conducteur</h2>
             <p class="content-text">Affichage des outputs en temps réel sur écran embarqué intégré au tableau de bord</p>
             <div class="sections-grid">
@@ -1434,8 +1498,8 @@
             </div>
         </div>
 
-        <!-- Slide 14: Dashboard Gestionnaire de Flotte -->
-        <div class="slide" data-slide="14">
+        <!-- Slide 15: Dashboard Gestionnaire de Flotte -->
+        <div class="slide" data-slide="15">
             <h2>Dashboard Gestionnaire de Flotte</h2>
             <p class="content-text">Interface web/mobile pour surveillance et gestion centralisée de la flotte</p>
             <div class="parameters-grid">
@@ -1468,8 +1532,8 @@
             </div>
         </div>
 
-        <!-- Slide 15: Évolution du Produit -->
-        <div class="slide" data-slide="15">
+        <!-- Slide 16: Évolution du Produit -->
+        <div class="slide" data-slide="16">
             <h2>Évolution du Produit : Prototype → Production</h2>
             <div class="integration-diagram">
                 <div class="integration-phase">
@@ -1498,8 +1562,8 @@
             </div>
         </div>
 
-        <!-- Slide 16: Bénéfices & Impact -->
-        <div class="slide" data-slide="16">
+        <!-- Slide 17: Bénéfices & Impact -->
+        <div class="slide" data-slide="17">
             <h2>Bénéfices & Impact Fleet Guardian</h2>
             <div class="stats-grid">
                 <div class="stat-box">
@@ -1528,8 +1592,8 @@
             </ul>
         </div>
 
-        <!-- Slide 17: Résumé Architecture Complète -->
-        <div class="slide" data-slide="17">
+        <!-- Slide 18: Résumé Architecture Complète -->
+        <div class="slide" data-slide="18">
             <h2>Résumé : Architecture Fleet Guardian</h2>
             <div class="system-architecture">
                 <div class="arch-stage">
@@ -1572,8 +1636,8 @@
             </div>
         </div>
 
-        <!-- Slide 18: Conclusion -->
-        <div class="slide" data-slide="18">
+        <!-- Slide 19: Conclusion -->
+        <div class="slide" data-slide="19">
             <h2>Fleet Guardian : L'Avenir de la Sécurité Routière</h2>
             <div class="summary-content">
                 <ul class="points-list">
@@ -1593,13 +1657,13 @@
     <!-- Navigation -->
     <div class="navigation">
         <button class="nav-btn" id="prevBtn" disabled>Précédent</button>
-        <span class="slide-counter" id="slideCounter">1 / 18</span>
+        <span class="slide-counter" id="slideCounter">1 / 19</span>
         <button class="nav-btn" id="nextBtn">Suivant</button>
     </div>
 
     <script>
         let currentSlide = 1;
-        const totalSlides = 18;
+        const totalSlides = 19;
 
         const slides = document.querySelectorAll('.slide');
         const prevBtn = document.getElementById('prevBtn');
